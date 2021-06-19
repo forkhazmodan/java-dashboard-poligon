@@ -12,14 +12,14 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class APIUserController {
 
-    UserService userService;
+    UserService userServiceImpl;
 
-    public APIUserController(UserService userService) {
-        this.userService = userService;
+    public APIUserController(UserService userServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
     }
 
     @GetMapping
     public List<User> getUsers() {
-        return userService.getUsers();
+        return userServiceImpl.getUsers();
     }
 }
