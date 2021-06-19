@@ -1,27 +1,32 @@
 package com.chmax.polygon.model;
 
-import com.chmax.polygon.enums.PrivilegeEnum;
+import com.chmax.polygon.enums.PrivilegeType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.util.Collection;
 
 @Entity
 @Data
 @NoArgsConstructor
 @Table(name = "privileges")
-public class Privilege {
+public class Privilege implements GrantedAuthority {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private PrivilegeEnum name;
+    @Enumerated(EnumType.STRING)
+    private PrivilegeType name;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Collection<Role> roles;
-
-    public Privilege(PrivilegeEnum name) {
+    public Privilege(PrivilegeType name) {
         this.name = name;
     }
+
+    @Override
+    public String getAuthority() {
+        return getName().name();
+    }
+
 }

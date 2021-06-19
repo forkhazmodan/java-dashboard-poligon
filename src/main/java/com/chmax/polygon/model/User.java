@@ -1,11 +1,8 @@
 package com.chmax.polygon.model;
 
-import com.chmax.polygon.proivder.ApplicationContextProvider;
 import com.chmax.polygon.proivder.PasswordEncoderProvider;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -16,8 +13,8 @@ import java.util.Collection;
 public class User {
 
     public User(String name, String email, String password) {
-        this.setName(name);
-        this.setEmail(email);
+        this.name = name;
+        this.email = email;
         this.setPassword(password);
     }
 
@@ -28,19 +25,13 @@ public class User {
     @Column(name = "name")
     String name;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     String email;
 
     @Column(name = "password")
     String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-////    @JoinTable(
-////            name = "users_roles",
-////            joinColumns = @JoinColumn(
-////                    name = "user_id", referencedColumnName = "id"),
-////            inverseJoinColumns = @JoinColumn(
-////                    name = "role_id", referencedColumnName = "id"))
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Collection<Role> roles;
 
     public void setPassword(String password) {

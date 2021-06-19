@@ -10,11 +10,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
-public class UserController {
+public class APIUserController {
 
     UserService userService;
 
-    public UserController(UserService userService) {
+    public APIUserController(UserService userService) {
         this.userService = userService;
     }
 
